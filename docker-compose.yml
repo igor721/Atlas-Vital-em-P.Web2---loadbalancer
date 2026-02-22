@@ -1,0 +1,63 @@
+
+services:
+
+  node1:
+    image: nginx
+    container_name: node1
+    volumes:
+      - ./build:/usr/share/nginx/html
+    networks:
+      - react-net
+
+  node2:
+    image: nginx
+    container_name: node2
+    volumes:
+      - ./build:/usr/share/nginx/html
+    networks:
+      - react-net
+
+  node3:
+    image: nginx
+    container_name: node3
+    volumes:
+      - ./build:/usr/share/nginx/html
+    networks:
+      - react-net
+
+  node4:
+    image: nginx
+    container_name: node4
+    volumes:
+      - ./build:/usr/share/nginx/html
+    networks:
+      - react-net
+
+  node5:
+    image: nginx
+    container_name: node5
+    volumes:
+      - ./build:/usr/share/nginx/html
+    networks:
+      - react-net
+
+  loadbalancerV:
+    image: nginx
+    container_name: loadbalancerV
+    ports:
+      - "9090:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+      - node5
+    networks:
+      - react-net
+
+networks:
+  react-net:
+    driver: bridge
